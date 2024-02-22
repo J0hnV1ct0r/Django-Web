@@ -1,0 +1,17 @@
+<h1>Lista de Obras Disponiveis</h1>
+<a href="{% url 'work-create' %}">Cadastrar Obra</a>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th></th>
+    </tr>
+    {% for work in works %}
+    <tr>
+        <td>{{work.title}}</td>
+        <td><a href="{% url 'work' work.id %}">View</a></td>
+    </tr>
+    {% empty %}
+    <h3>No items in list</h3>
+    {% endfor %}
+</table>

@@ -8,8 +8,15 @@ class Work(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)
     author = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    page_number = models.IntegerField(null=True, blank=True)
     kind = models.CharField(max_length=100, blank=True)
-    image = models.ImageField()
+    image = models.ImageField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['kind']
 
 
 class Challenge(models.Model):
@@ -17,8 +24,15 @@ class Challenge(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    page_per_day = models.IntegerField(null=True, blank=True)
     completed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['completed']
 
 
 class Review(models.Model):
@@ -26,4 +40,10 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    score = models.FloatField(null=True, blank=True) #ver como adicionar limite superior e inferior
+    score = models.FloatField(null=True, blank=True)  # ver como adicionar limite superior e inferior
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['score']
