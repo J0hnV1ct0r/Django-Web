@@ -1,0 +1,6 @@
+<a href="{% url 'works' %}">Go Back</a>
+<form method="post">
+    {% csrf_token %}
+    <p>Tem certeza que deseja apagar essa obra?</p>
+    <input type="submit" value="Delete" />
+</form>

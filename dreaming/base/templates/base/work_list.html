@@ -1,3 +1,9 @@
+{% if request.user.is_authenticated%}
+    <p>{{request.user}}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
 <h1>Lista de Obras Disponiveis</h1>
 <a href="{% url 'work-create' %}">Cadastrar Obra</a>
 
@@ -5,11 +11,15 @@
     <tr>
         <th>Item</th>
         <th></th>
+        <th></th>
+
     </tr>
     {% for work in works %}
     <tr>
         <td>{{work.title}}</td>
         <td><a href="{% url 'work' work.id %}">View</a></td>
+        <td><a href="{% url 'work-update' work.id %}">Edit</a></td>
+        <td><a href="{% url 'work-delete' work.id %}">Delete</a></td>
     </tr>
     {% empty %}
     <h3>No items in list</h3>
