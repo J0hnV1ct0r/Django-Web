@@ -1,6 +1,6 @@
 <a href="{% url 'works' %}">Go Back</a>
-<form method="post">
+<form method="POST">
     {% csrf_token %}
-    <p>Tem certeza que deseja apagar essa obra?</p>
+    <p>Tem certeza que deseja apagar essa obra? "{{work}}"</p>
     <input type="submit" value="Delete" />
 </form>
