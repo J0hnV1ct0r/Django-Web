@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
-from .models import Work
+from .models import Work, Challenge
 
 
 # Create your views here.
@@ -19,14 +19,14 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('works')
+        return reverse_lazy('challenges')
 
 
 class RegisterPage(FormView):
     template_name = 'base/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
-    success_url = reverse_lazy('works')
+    success_url = reverse_lazy('challenges')
 
     def form_valid(self, form):
         user = form.save()
@@ -36,13 +36,43 @@ class RegisterPage(FormView):
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('works')
+            return redirect('challenges')
         return super(RegisterPage, self).get(*args, **kwargs)
+
+
+class ChallengeList(LoginRequiredMixin, ListView):
+    model = Challenge
+    context_object_name = 'challenges'
+
+
+class ChallengeDetail(LoginRequiredMixin, DetailView):
+    model = Challenge
+    context_object_name = 'challenge'
+    template_name = 'base/challenge.html'
+
+
+class ChallengeCreate(LoginRequiredMixin, CreateView):
+    model = Challenge
+    fields = '__all__'
+    success_url = reverse_lazy('challenges')
+
+
+class ChallengeUpdate(LoginRequiredMixin, UpdateView):
+    model = Challenge
+    fields = '__all__'
+    success_url = reverse_lazy('challenges')
+
+
+class ChallengeDelete(LoginRequiredMixin, DeleteView):
+    model = Challenge
+    context_object_name = 'challenge'
+    success_url = reverse_lazy('challenges')
 
 
 class WorkList(LoginRequiredMixin, ListView):
     model = Work
     context_object_name = 'works'
+    success_url = reverse_lazy('works')
 
 
 class WorkDetail(LoginRequiredMixin, DetailView):

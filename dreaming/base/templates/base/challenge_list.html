@@ -1,0 +1,33 @@
+{% if request.user.is_authenticated%}
+    <p>{{request.user}}</p>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+<h1>Lista de Desafios</h1>
+<a href="{% url 'challenge-create' %}">Criar Desafio</a>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th></th>
+        <th></th>
+
+    </tr>
+
+    {% for challenge in challenges %}
+    <tr>
+        <td>{{challenge.title}}</td>
+        <td><a href="{% url 'challenge' challenge.id %}">View</a></td>
+        <td><a href="{% url 'challenge-update' challenge.id %}">Edit</a></td>
+        <td><a href="{% url 'challenge-delete' challenge.id %}">Delete</a></td>
+    </tr>
+    {% empty %}
+    <h3>No items in list</h3>
+    {% endfor %}
+
+</table>
