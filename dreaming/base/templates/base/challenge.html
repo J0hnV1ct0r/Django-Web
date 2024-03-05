@@ -1,1 +1,21 @@
-<h1>Desafio: {{challenge}}</h1>
+<!-- challenge_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Desafio</title>
+    <a href="{% url 'challenges' %}">Go back </a>
+</head>
+<body>
+    <h2>Detalhes do Desafio</h2>
+    <p><strong>Obra:</strong> {{ challenge.book.title }}</p>
+    <p><strong>Título:</strong> {{ challenge.title }}</p>
+    <p><strong>Descrição:</strong> {{ challenge.description }}</p>
+    <p><strong>Páginas por dia:</strong> {{ challenge.page_per_day }}</p>
+    <p><strong>Concluído:</strong> {% if challenge.completed %}Sim{% else %}Não{% endif %}</p>
+    <p><strong>Criado em:</strong> {{ challenge.created }}</p>
+</body>
+</html>

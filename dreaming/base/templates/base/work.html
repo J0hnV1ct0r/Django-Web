@@ -1,1 +1,39 @@
-<h1>Obra:  {{work}}</h1>
+<!-- work.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Trabalho</title>
+</head>
+<body>
+<a href="{% url 'works' %}">Go back </a>
+    <h2>Detalhes da Obra</h2>
+    {% if work.image %}
+    <img src="{{ work.image.url }}" alt="Imagem da Obra">
+    {% endif %}
+    <p><strong>Título:</strong> {{ work.title }}</p>
+    <p><strong>Autor:</strong> {{ work.author }}</p>
+    <p><strong>Média das Notas:</strong> {{ average_score }}</p>
+    <p><strong>Descrição:</strong> {{ work.description }}</p>
+    <p><strong>Número de Páginas:</strong> {{ work.page_number }}</p>
+    <p><strong>Tipo:</strong> {{ work.kind }}</p>
+
+
+    <h3>Reviews:</h3>
+    <a href="{% url 'review-create' work_id=work.id %}">Faça sua review</a>
+    {% if num_reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li><strong>Usuário:</strong> {{ review.user.username }} - <strong>Nota:</strong> {{ review.score }} </li>
+                <p><strong>Título:</strong> {{ review.title }}  </p>
+                <p>{{ review.review }}  </p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Ainda não há reviews para este trabalho.</p>
+    {% endif %}
+</body>
+</html>

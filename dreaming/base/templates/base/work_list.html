@@ -1,14 +1,6 @@
-{% if request.user.is_authenticated%}
-    <p>{{request.user}}</p>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+
 <h1>Lista de Obras Disponiveis</h1>
-<a href="{% url 'work-create' %}">Cadastrar Obra</a>
+<a href="{% url 'challenges' %}">Go Back</a>
 
 <table>
     <tr>
@@ -21,8 +13,6 @@
     <tr>
         <td>{{work.title}}</td>
         <td><a href="{% url 'work' work.id %}">View</a></td>
-        <td><a href="{% url 'work-update' work.id %}">Edit</a></td>
-        <td><a href="{% url 'work-delete' work.id %}">Delete</a></td>
     </tr>
     {% empty %}
     <h3>No items in list</h3>

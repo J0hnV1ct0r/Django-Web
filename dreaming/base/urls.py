@@ -1,7 +1,9 @@
-from django.urls import path
-from .views import (WorkList, WorkDetail, WorkCreate, WorkUpdate, DeleteView, CustomLoginView, RegisterPage,
-                    ChallengeList, ChallengeDetail, ChallengeCreate, ChallengeUpdate, ChallengeDelete)
 from django.contrib.auth.views import LogoutView
+from django.urls import path
+
+from .views import (WorkList, WorkDetail, WorkCreate, WorkUpdate, DeleteView, CustomLoginView, RegisterPage,
+                    ChallengeList,
+                    ChallengeDetail, ChallengeCreate, ChallengeUpdate, ChallengeDelete, ReviewCreate, ReviewUpdate, ReviewDelete)
 
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
@@ -19,4 +21,8 @@ urlpatterns = [
     path('work-create/', WorkCreate.as_view(), name='work-create'),
     path('work-update/<int:pk>/', WorkUpdate.as_view(), name='work-update'),
     path('work-delete/<int:pk>/', DeleteView.as_view(), name='work-delete'),
+
+    path('review-create/<int:work_id>/', ReviewCreate.as_view(), name='review-create'),
+    path('review-update/<int:pk>/', ReviewUpdate.as_view(), name='review-update'),
+    path('review-delete/<int:pk>/', ReviewDelete.as_view(), name='review-update'),
 ]
