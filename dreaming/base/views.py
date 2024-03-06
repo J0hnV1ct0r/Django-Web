@@ -102,10 +102,13 @@ class WorkDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         work = self.get_object()
+        user_reviews = Review.objects.filter(work=self.object, user=self.request.user)
+        other_reviews = Review.objects.filter(work=self.object).exclude(user=self.request.user)
         reviews = Review.objects.filter(work=work)
         average_score = reviews.aggregate(Avg('score'))['score__avg'] or 0
         num_reviews = reviews.count()
-        context['reviews'] = reviews
+        context['user_reviews'] = user_reviews
+        context['other_reviews'] = other_reviews
         context['average_score'] = average_score
         context['num_reviews'] = num_reviews
         return context
@@ -147,11 +150,16 @@ class ReviewCreate(LoginRequiredMixin, CreateView):
 
 class ReviewUpdate(LoginRequiredMixin, UpdateView):
     model = Review
+    fields = ['title', 'review', 'score']
     context_object_name = 'review'
-    success_url = reverse_lazy('work')
+
+    def get_success_url(self):
+        return reverse_lazy('work', kwargs={'pk': self.object.work.pk})
 
 
 class ReviewDelete(LoginRequiredMixin, DeleteView):
     model = Review
     context_object_name = 'review'
-    success_url = reverse_lazy('work')
+
+    def get_success_url(self):
+        return reverse_lazy('work', kwargs={'pk': self.object.work.pk})

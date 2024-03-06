@@ -1,4 +1,4 @@
-<a href="{% url 'work' %}">Go Back</a>
+<a href="{% url 'work' pk=review.work.pk %}">Go Back</a>
 <form method="POST" action="">
     {% csrf_token %}
     <p>Tem certeza que deseja apagar a review? "{{review}}"</p>

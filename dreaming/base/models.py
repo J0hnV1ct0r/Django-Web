@@ -10,6 +10,7 @@ class Work(models.Model):
     author = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     page_number = models.IntegerField(null=True, blank=True)
+    genre = models.CharField(max_length=200, null=True, blank=True)
     kind = models.CharField(max_length=100, blank=True)
     image = models.ImageField(null=True, blank=True)
 
@@ -25,7 +26,6 @@ class Challenge(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    page_per_day = models.IntegerField(null=True, blank=True)
     completed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -55,3 +55,6 @@ class Journal(models.Model):
     entry_name = models.CharField(max_length=200, null=True)
     entry = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

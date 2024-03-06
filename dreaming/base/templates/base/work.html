@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Trabalho</title>
+    <title>Detalhes da Obra</title>
 </head>
 <body>
 <a href="{% url 'works' %}">Go back </a>
@@ -18,22 +18,38 @@
     <p><strong>Autor:</strong> {{ work.author }}</p>
     <p><strong>Média das Notas:</strong> {{ average_score }}</p>
     <p><strong>Descrição:</strong> {{ work.description }}</p>
+    <p><strong>Genero:</strong> {{ work.genre }}</p>
     <p><strong>Número de Páginas:</strong> {{ work.page_number }}</p>
     <p><strong>Tipo:</strong> {{ work.kind }}</p>
 
 
-    <h3>Reviews:</h3>
-    <a href="{% url 'review-create' work_id=work.id %}">Faça sua review</a>
-    {% if num_reviews %}
-        <ul>
-            {% for review in reviews %}
-                <li><strong>Usuário:</strong> {{ review.user.username }} - <strong>Nota:</strong> {{ review.score }} </li>
-                <p><strong>Título:</strong> {{ review.title }}  </p>
-                <p>{{ review.review }}  </p>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Ainda não há reviews para este trabalho.</p>
+    <h2>Reviews:</h2>
+
+    <h3>Sua Review</h3>
+    {% if not user_reviews %}
+        <a href="{% url 'review-create' work_id=work.id %}">Faça sua review</a>
     {% endif %}
+
+    {% for review in user_reviews %}
+        <p> <strong>Usuário:</strong> {{ review.user.username }} - <strong>Nota:</strong> {{ review.score }}</p>
+        <p><strong>Título:</strong> {{ review.title }}</p>
+        <p>{{ review.review }}</p>
+        {% if review.user == request.user %}
+            <a href="{% url 'review-update' pk=review.pk %}">Atualizar</a>
+            <a href="{% url 'review-delete' pk=review.pk %}">Excluir</a>
+        {% endif %}
+    {% empty %}
+        <p>Você ainda não fez nenhuma revisão para este trabalho.</p>
+    {% endfor %}
+
+    <h3>Outras Reviews</h3>
+    {% for review in other_reviews %}
+        <p> <strong>Usuário:</strong> {{ review.user.username }} - <strong>Nota:</strong> {{ review.score }}</p>
+        <p><strong>Título:</strong> {{ review.title }}</p>
+        <p>{{ review.review }}</p>
+    {% empty %}
+        <p>Você ainda não fez nenhuma revisão para este trabalho.</p>
+    {% endfor %}
+
 </body>
 </html>
