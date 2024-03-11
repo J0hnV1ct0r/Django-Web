@@ -10,7 +10,7 @@
 </head>
 <body>
     <h2>formulario Review</h2>
-    <a href="{% url 'work' pk=review.work.pk %}">Go Back</a>
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

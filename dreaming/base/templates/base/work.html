@@ -12,7 +12,7 @@
 <a href="{% url 'works' %}">Go back </a>
     <h2>Detalhes da Obra</h2>
     {% if work.image %}
-    <img src="{{ work.image.url }}" alt="Imagem da Obra">
+    <img src="{{ imagens.url }}" alt="{{ work.title }}">
     {% endif %}
     <p><strong>Título:</strong> {{ work.title }}</p>
     <p><strong>Autor:</strong> {{ work.author }}</p>

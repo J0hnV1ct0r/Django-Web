@@ -1,5 +1,7 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from .views import (WorkList, WorkDetail, WorkCreate, WorkUpdate, DeleteView, CustomLoginView, RegisterPage,
                     ChallengeList,
@@ -25,4 +27,4 @@ urlpatterns = [
     path('review-create/<int:work_id>/', ReviewCreate.as_view(), name='review-create'),
     path('review-update/<int:pk>/', ReviewUpdate.as_view(), name='review-update'),
     path('review-delete/<int:pk>/', ReviewDelete.as_view(), name='review-delete'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,7 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.utils.decorators import method_decorator
 
-from .models import Work, Challenge, Review
+from .models import Work, Challenge, Review, Journal
 
 
 # Create your views here.
@@ -68,7 +68,7 @@ class ChallengeDetail(LoginRequiredMixin, DetailView):
 
 class ChallengeCreate(LoginRequiredMixin, CreateView):
     model = Challenge
-    fields = ['book', 'title', 'description', 'page_per_day', 'completed']
+    fields = ['book', 'title', 'description']
     success_url = reverse_lazy('challenges')
 
     def form_valid(self, form):
@@ -78,7 +78,7 @@ class ChallengeCreate(LoginRequiredMixin, CreateView):
 
 class ChallengeUpdate(LoginRequiredMixin, UpdateView):
     model = Challenge
-    fields = ['book', 'title', 'description', 'page_per_day', 'completed']
+    fields = ['book', 'title', 'description', 'completed']
     success_url = reverse_lazy('challenges')
 
 
@@ -163,3 +163,8 @@ class ReviewDelete(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('work', kwargs={'pk': self.object.work.pk})
+
+
+class JournalCreateView(LoginRequiredMixin, CreateView):
+    model = Journal
+    fields = '__all__'
