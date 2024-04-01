@@ -1,11 +1,18 @@
+"""
+Este modulo contém os paths do sistema.
+"""
+
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import (WorkList, WorkDetail, WorkCreate, WorkUpdate, DeleteView, CustomLoginView, RegisterPage,
-                    ChallengeList,
-                    ChallengeDetail, ChallengeCreate, ChallengeUpdate, ChallengeDelete, ReviewCreate, ReviewUpdate, ReviewDelete)
+from .views import (WorkList, WorkDetail, WorkCreate, WorkUpdate, DeleteView,
+                    CustomLoginView, RegisterPage)
+from .views import (ChallengeList, ChallengeDetail, ChallengeCreate, ChallengeUpdate,
+                    ChallengeDelete)
+from .views import (ReviewCreate, ReviewUpdate, ReviewDelete)
+
 
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),

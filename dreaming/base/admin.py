@@ -1,3 +1,7 @@
+"""
+Registro dos modelos do sistema.
+"""
+
 from django.contrib import admin
 from .models import Work, Review, Challenge
 # Register your models here.

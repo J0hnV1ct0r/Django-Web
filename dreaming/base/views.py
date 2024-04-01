@@ -1,22 +1,26 @@
-from django.shortcuts import render, redirect
+"""
+Este módulo contém as views do sistema.
+"""
+
+from django.shortcuts import redirect
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404
-from django.forms import BaseModelForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.utils.decorators import method_decorator
 
 from .models import Work, Challenge, Review, Journal
 
 
 # Create your views here.
 class CustomLoginView(LoginView):
+    """View de login do sistema."""
+
     template_name = 'base/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
@@ -26,6 +30,8 @@ class CustomLoginView(LoginView):
 
 
 class RegisterPage(FormView):
+    """View de registro de usuario novo."""
+
     template_name = 'base/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
@@ -44,6 +50,7 @@ class RegisterPage(FormView):
 
 
 class ChallengeList(LoginRequiredMixin, ListView):
+    """View de listagem dos desafios não completados pelo usuario."""
     model = Challenge
     context_object_name = 'challenges'
 
@@ -61,12 +68,14 @@ class ChallengeList(LoginRequiredMixin, ListView):
 
 
 class ChallengeDetail(LoginRequiredMixin, DetailView):
+    """View de detalhamento de desafios de leitura."""
     model = Challenge
     context_object_name = 'challenge'
     template_name = 'base/challenge.html'
 
 
 class ChallengeCreate(LoginRequiredMixin, CreateView):
+    """View de criação de desafios de leitura."""
     model = Challenge
     fields = ['book', 'title', 'description']
     success_url = reverse_lazy('challenges')
@@ -77,24 +86,28 @@ class ChallengeCreate(LoginRequiredMixin, CreateView):
 
 
 class ChallengeUpdate(LoginRequiredMixin, UpdateView):
+    """View de atualização de desafios de leitura."""
     model = Challenge
     fields = ['book', 'title', 'description', 'completed']
     success_url = reverse_lazy('challenges')
 
 
 class ChallengeDelete(LoginRequiredMixin, DeleteView):
+    """View de deleção de desafios de leitura do sistema."""
     model = Challenge
     context_object_name = 'challenge'
     success_url = reverse_lazy('challenges')
 
 
 class WorkList(LoginRequiredMixin, ListView):
+    """View de listagem de obras literarias."""
     model = Work
     context_object_name = 'works'
     success_url = reverse_lazy('works')
 
 
 class WorkDetail(LoginRequiredMixin, DetailView):
+    """View de detalhamento de obras e listagem de reviews."""
     model = Work
     context_object_name = 'work'
     template_name = 'base/work.html'
@@ -115,6 +128,7 @@ class WorkDetail(LoginRequiredMixin, DetailView):
 
 
 class WorkCreate(LoginRequiredMixin, CreateView):
+    """View de criação de obras de literaria."""
     model = Work
     fields = '__all__'
     template_name = 'base/review_form.html'
@@ -122,18 +136,21 @@ class WorkCreate(LoginRequiredMixin, CreateView):
 
 
 class WorkUpdate(LoginRequiredMixin, UpdateView):
+    """View de atualização de obras de literaria."""
     model = Work
     fields = '__all__'
     success_url = reverse_lazy('works')
 
 
 class WorkDelete(LoginRequiredMixin, DeleteView):
+    """View de deleção de obras de literarias do sistema."""
     model = Work
     context_object_name = 'work'
     success_url = reverse_lazy('works')
 
 
 class ReviewCreate(LoginRequiredMixin, CreateView):
+    """View de criação de review."""
     model = Review
     fields = ['title', 'review', 'score']
     success_url = reverse_lazy('works')
@@ -149,6 +166,7 @@ class ReviewCreate(LoginRequiredMixin, CreateView):
 
 
 class ReviewUpdate(LoginRequiredMixin, UpdateView):
+    """View de atualização de review."""
     model = Review
     fields = ['title', 'review', 'score']
     context_object_name = 'review'
@@ -158,6 +176,7 @@ class ReviewUpdate(LoginRequiredMixin, UpdateView):
 
 
 class ReviewDelete(LoginRequiredMixin, DeleteView):
+    """View de deleção de review do sistema."""
     model = Review
     context_object_name = 'review'
 
@@ -166,5 +185,6 @@ class ReviewDelete(LoginRequiredMixin, DeleteView):
 
 
 class JournalCreateView(LoginRequiredMixin, CreateView):
+    """View de criação de journal."""
     model = Journal
     fields = '__all__'
