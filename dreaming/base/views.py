@@ -20,7 +20,6 @@ from .models import Work, Challenge, Review, Journal
 # Create your views here.
 #
 class CustomLoginView(LoginView):
-    # pylint: disable = R0901
     """View de login do sistema."""
 
     template_name = 'base/login.html'
@@ -77,7 +76,6 @@ class ChallengeDetail(LoginRequiredMixin, DetailView):
 
 
 class ChallengeCreate(LoginRequiredMixin, CreateView):
-    # pylint: disable = R0901
     """View de criação de desafios de leitura."""
     model = Challenge
     fields = ['book', 'title', 'description']
@@ -89,7 +87,6 @@ class ChallengeCreate(LoginRequiredMixin, CreateView):
 
 
 class ChallengeUpdate(LoginRequiredMixin, UpdateView):
-    # pylint: disable = R0901
     """View de atualização de desafios de leitura."""
     model = Challenge
     fields = ['book', 'title', 'description', 'completed']
@@ -97,7 +94,6 @@ class ChallengeUpdate(LoginRequiredMixin, UpdateView):
 
 
 class ChallengeDelete(LoginRequiredMixin, DeleteView):
-    # pylint: disable = R0901
     """View de deleção de desafios de leitura do sistema."""
     model = Challenge
     context_object_name = 'challenge'
@@ -136,7 +132,6 @@ class WorkDetail(LoginRequiredMixin, DetailView):
 
 
 class WorkCreate(LoginRequiredMixin, CreateView):
-    # pylint: disable = R0901
     """View de criação de obras de literaria."""
     model = Work
     fields = '__all__'
@@ -145,7 +140,6 @@ class WorkCreate(LoginRequiredMixin, CreateView):
 
 
 class WorkUpdate(LoginRequiredMixin, UpdateView):
-    # pylint: disable = R0901
     """View de atualização de obras de literaria."""
     model = Work
     fields = '__all__'
@@ -153,7 +147,6 @@ class WorkUpdate(LoginRequiredMixin, UpdateView):
 
 
 class WorkDelete(LoginRequiredMixin, DeleteView):
-    # pylint: disable = R0901
     """View de deleção de obras de literarias do sistema."""
     model = Work
     context_object_name = 'work'
@@ -161,7 +154,6 @@ class WorkDelete(LoginRequiredMixin, DeleteView):
 
 
 class ReviewCreate(LoginRequiredMixin, CreateView):
-    # pylint: disable = R0901
     """View de criação de review."""
     model = Review
     fields = ['title', 'review', 'score']
@@ -178,7 +170,6 @@ class ReviewCreate(LoginRequiredMixin, CreateView):
 
 
 class ReviewUpdate(LoginRequiredMixin, UpdateView):
-    # pylint: disable = R0901
     """View de atualização de review."""
     model = Review
     fields = ['title', 'review', 'score']
@@ -189,7 +180,6 @@ class ReviewUpdate(LoginRequiredMixin, UpdateView):
 
 
 class ReviewDelete(LoginRequiredMixin, DeleteView):
-    # pylint: disable = R0901
     """View de deleção de review do sistema."""
     model = Review
     context_object_name = 'review'
@@ -199,7 +189,6 @@ class ReviewDelete(LoginRequiredMixin, DeleteView):
 
 
 class JournalCreateView(LoginRequiredMixin, CreateView):
-    # pylint: disable = R0901
     """View de criação de journal."""
     model = Journal
     fields = '__all__'
