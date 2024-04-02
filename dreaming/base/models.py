@@ -8,6 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
+
 class Work(models.Model):
     """Esse modelo representa as obras literarias."""
     title = models.CharField(max_length=200, null=True, blank=True)
@@ -24,6 +25,16 @@ class Work(models.Model):
     class Meta:
         """ordena apartir do tipo da obra literaria."""
         ordering = ['kind']
+
+        @staticmethod
+        def change_image(new_image):
+            """função de modificar o imagem da obra."""
+            print(f'teste: {new_image}')
+
+        @staticmethod
+        def rename(new_name):
+            """função de renomear o tipo da obra."""
+            print(f'teste: {new_name}')
 
 
 class Challenge(models.Model):
@@ -42,6 +53,16 @@ class Challenge(models.Model):
         """ordena apartir do valor do campo completed."""
         ordering = ['completed']
 
+        @staticmethod
+        def change_book(new_book):
+            """função de modificar a obra do desafio de leitura."""
+            print(f'teste: {new_book}')
+
+        @staticmethod
+        def rename(new_name):
+            """função de renomear o titulo do desafio de leitura."""
+            print(f'teste: {new_name}')
+
 
 class Review(models.Model):
     """Esse modelo representa as resenhas dos usuarios a uma obra."""
@@ -58,6 +79,16 @@ class Review(models.Model):
     class Meta:
         """ordena apartir da nota das resenhas dos usuarios a obra."""
         ordering = ['score']
+
+        @staticmethod
+        def change_book(new_score):
+            """função de modificar a nota da resenha do usuario."""
+            print(f'teste: {new_score}')
+
+        @staticmethod
+        def rename(new_name):
+            """função de renomear o titulo da resenha."""
+            print(f'teste: {new_name}')
 
 
 class Journal(models.Model):

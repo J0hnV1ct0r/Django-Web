@@ -18,7 +18,9 @@ from .models import Work, Challenge, Review, Journal
 
 
 # Create your views here.
+#
 class CustomLoginView(LoginView):
+    # pylint: disable = R0901
     """View de login do sistema."""
 
     template_name = 'base/login.html'
@@ -41,12 +43,12 @@ class RegisterPage(FormView):
         user = form.save()
         if user is not None:
             login(self.request, user)
-        return super(RegisterPage, self).form_valid(form)
+        return super().form_valid(form)
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
             return redirect('challenges')
-        return super(RegisterPage, self).get(*args, **kwargs)
+        return super().get(*args, **kwargs)
 
 
 class ChallengeList(LoginRequiredMixin, ListView):
@@ -75,6 +77,7 @@ class ChallengeDetail(LoginRequiredMixin, DetailView):
 
 
 class ChallengeCreate(LoginRequiredMixin, CreateView):
+    # pylint: disable = R0901
     """View de criação de desafios de leitura."""
     model = Challenge
     fields = ['book', 'title', 'description']
@@ -82,10 +85,11 @@ class ChallengeCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(ChallengeCreate, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class ChallengeUpdate(LoginRequiredMixin, UpdateView):
+    # pylint: disable = R0901
     """View de atualização de desafios de leitura."""
     model = Challenge
     fields = ['book', 'title', 'description', 'completed']
@@ -93,6 +97,7 @@ class ChallengeUpdate(LoginRequiredMixin, UpdateView):
 
 
 class ChallengeDelete(LoginRequiredMixin, DeleteView):
+    # pylint: disable = R0901
     """View de deleção de desafios de leitura do sistema."""
     model = Challenge
     context_object_name = 'challenge'
@@ -115,8 +120,11 @@ class WorkDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         work = self.get_object()
+        # pylint: disable=E1101
         user_reviews = Review.objects.filter(work=self.object, user=self.request.user)
+        # pylint: disable=E1101
         other_reviews = Review.objects.filter(work=self.object).exclude(user=self.request.user)
+        # pylint: disable=E1101
         reviews = Review.objects.filter(work=work)
         average_score = reviews.aggregate(Avg('score'))['score__avg'] or 0
         num_reviews = reviews.count()
@@ -128,6 +136,7 @@ class WorkDetail(LoginRequiredMixin, DetailView):
 
 
 class WorkCreate(LoginRequiredMixin, CreateView):
+    # pylint: disable = R0901
     """View de criação de obras de literaria."""
     model = Work
     fields = '__all__'
@@ -136,6 +145,7 @@ class WorkCreate(LoginRequiredMixin, CreateView):
 
 
 class WorkUpdate(LoginRequiredMixin, UpdateView):
+    # pylint: disable = R0901
     """View de atualização de obras de literaria."""
     model = Work
     fields = '__all__'
@@ -143,6 +153,7 @@ class WorkUpdate(LoginRequiredMixin, UpdateView):
 
 
 class WorkDelete(LoginRequiredMixin, DeleteView):
+    # pylint: disable = R0901
     """View de deleção de obras de literarias do sistema."""
     model = Work
     context_object_name = 'work'
@@ -150,6 +161,7 @@ class WorkDelete(LoginRequiredMixin, DeleteView):
 
 
 class ReviewCreate(LoginRequiredMixin, CreateView):
+    # pylint: disable = R0901
     """View de criação de review."""
     model = Review
     fields = ['title', 'review', 'score']
@@ -159,13 +171,14 @@ class ReviewCreate(LoginRequiredMixin, CreateView):
         work = get_object_or_404(Work, pk=self.kwargs['work_id'])
         form.instance.work = work
         form.instance.user = self.request.user
-        return super(ReviewCreate, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('work', kwargs={'pk': self.object.work.pk})
 
 
 class ReviewUpdate(LoginRequiredMixin, UpdateView):
+    # pylint: disable = R0901
     """View de atualização de review."""
     model = Review
     fields = ['title', 'review', 'score']
@@ -176,6 +189,7 @@ class ReviewUpdate(LoginRequiredMixin, UpdateView):
 
 
 class ReviewDelete(LoginRequiredMixin, DeleteView):
+    # pylint: disable = R0901
     """View de deleção de review do sistema."""
     model = Review
     context_object_name = 'review'
@@ -185,6 +199,7 @@ class ReviewDelete(LoginRequiredMixin, DeleteView):
 
 
 class JournalCreateView(LoginRequiredMixin, CreateView):
+    # pylint: disable = R0901
     """View de criação de journal."""
     model = Journal
     fields = '__all__'
