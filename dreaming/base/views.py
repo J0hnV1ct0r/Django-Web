@@ -131,28 +131,6 @@ class WorkDetail(LoginRequiredMixin, DetailView):
         return context
 
 
-class WorkCreate(LoginRequiredMixin, CreateView):
-    """View de criação de obras de literaria."""
-    model = Work
-    fields = '__all__'
-    template_name = 'base/review_form.html'
-    success_url = reverse_lazy('works')
-
-
-class WorkUpdate(LoginRequiredMixin, UpdateView):
-    """View de atualização de obras de literaria."""
-    model = Work
-    fields = '__all__'
-    success_url = reverse_lazy('works')
-
-
-class WorkDelete(LoginRequiredMixin, DeleteView):
-    """View de deleção de obras de literarias do sistema."""
-    model = Work
-    context_object_name = 'work'
-    success_url = reverse_lazy('works')
-
-
 class ReviewCreate(LoginRequiredMixin, CreateView):
     """View de criação de review."""
     model = Review
