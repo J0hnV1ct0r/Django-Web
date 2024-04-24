@@ -2,9 +2,13 @@
 <h1>Lista de Obras Disponiveis</h1>
 <a href="{% url 'challenges' %}">Go Back</a>
 
+<form method="GET">
+    <input type="text" name="search-area" value="{{search_input}}">
+    <input type="submit" value="Search">
+
 <table>
     <tr>
-        <th>Item</th>
+        <th>Obras</th>
         <th></th>
         <th></th>
 
@@ -17,4 +21,5 @@
     {% empty %}
     <h3>No items in list</h3>
     {% endfor %}
+
 </table>

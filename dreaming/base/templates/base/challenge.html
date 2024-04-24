@@ -18,5 +18,29 @@
     <p><strong>Criado em:</strong> {{ challenge.created }}</p>
 
     <h2>Journal</h2>
+    <a href="{% url 'journal-create' challenge_id=challenge.id %}">Criar entrada no diario</a>
+
+    <h3>Entradas</h3>
+    {% for page in pages %}
+        <p> <strong>Titulo:</strong> {{ page.entry_name }} </p>
+        <p>{{ page.entry }}</p>
+        <a href="{% url 'journal-update' pk=page.pk %}">Atualizar</a>
+        <a href="{% url 'journal-delete' pk=page.pk %}">Excluir</a>
+    {% empty %}
+        <p>Você ainda não fez nenhuma entrada no diario.</p>
+    {% endfor %}
+
+<!-- Paginação -->
+    {% if pages.has_other_pages %}
+        <ul class="pagination">
+            {% for num in pages.paginator.page_range %}
+                {% if pages.number == num %}
+                    <li class="active"><span>{{ num }}</span></li>
+                {% elif num > pages.number|add:'-3' and num < pages.number|add:'3' %}
+                    <li><a href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>

@@ -13,6 +13,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Work, Challenge, Review, Journal
 
@@ -74,6 +75,24 @@ class ChallengeDetail(LoginRequiredMixin, DetailView):
     context_object_name = 'challenge'
     template_name = 'base/challenge.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        challenge = self.get_object()
+        # pylint: disable=E1101
+        journal_entries = Journal.objects.filter(challenge=challenge).order_by('created')
+        paginator = Paginator(journal_entries, 1)
+        num_pages = self.request.GET.get('page')
+        try:
+            pages = paginator.page(num_pages)
+        except PageNotAnInteger:
+            pages = paginator.page(1)
+        except EmptyPage:
+            pages = paginator.page(paginator.num_pages)
+
+        context['pages'] = pages
+        context['num_reviews'] = num_pages
+        return context
+
 
 class ChallengeCreate(LoginRequiredMixin, CreateView):
     """View de criação de desafios de leitura."""
@@ -104,7 +123,16 @@ class WorkList(LoginRequiredMixin, ListView):
     """View de listagem de obras literarias."""
     model = Work
     context_object_name = 'works'
-    success_url = reverse_lazy('works')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['works'] = context['works'].filter(title__startswith=search_input)
+
+        context['search_input'] = search_input
+        return context
 
 
 class WorkDetail(LoginRequiredMixin, DetailView):
@@ -169,4 +197,33 @@ class ReviewDelete(LoginRequiredMixin, DeleteView):
 class JournalCreateView(LoginRequiredMixin, CreateView):
     """View de criação de journal."""
     model = Journal
-    fields = '__all__'
+    fields = ['entry_name', 'entry']
+    template_name = 'base/journal_form.html'
+
+    def form_valid(self, form):
+        challenge = get_object_or_404(Challenge, pk=self.kwargs['challenge_id'])
+        form.instance.challenge = challenge
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('challenge', kwargs={'pk': self.object.challenge.pk})
+
+
+class JournalUpdate(LoginRequiredMixin, UpdateView):
+    """View de atualização de journal."""
+    model = Journal
+    fields = ['entry_name', 'entry']
+    context_object_name = 'journal'
+    template_name = 'base/journal_update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('challenge', kwargs={'pk': self.object.challenge.pk})
+
+
+class JournalDelete(LoginRequiredMixin, DeleteView):
+    """View de deleção de journal do sistema."""
+    model = Journal
+    context_object_name = 'journal'
+
+    def get_success_url(self):
+        return reverse_lazy('challenge', kwargs={'pk': self.object.challenge.pk})

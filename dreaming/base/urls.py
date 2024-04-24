@@ -13,6 +13,8 @@ from .views import (ChallengeList, ChallengeDetail, ChallengeCreate, ChallengeUp
                     ChallengeDelete)
 from .views import (ReviewCreate, ReviewUpdate, ReviewDelete)
 
+from .views import (JournalCreateView, JournalUpdate, JournalDelete)
+
 
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
@@ -31,4 +33,10 @@ urlpatterns = [
     path('user/review/create/<int:work_id>/', ReviewCreate.as_view(), name='review-create'),
     path('user/review/update/<int:pk>/', ReviewUpdate.as_view(), name='review-update'),
     path('user/review/delete/<int:pk>/', ReviewDelete.as_view(), name='review-delete'),
+
+    path('user/journal/create/<int:challenge_id>/', JournalCreateView.as_view(), name='journal-create'),
+    path('user/journal/update/<int:pk>/', JournalUpdate.as_view(), name='journal-update'),
+    path('user/journal/delete/<int:pk>/', JournalDelete.as_view(), name='journal-delete'),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
