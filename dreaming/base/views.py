@@ -15,7 +15,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Work, Challenge, Review, Journal
+from .models import Work, Challenge, Review, Journal, Community
 
 
 # Create your views here.
@@ -227,3 +227,46 @@ class JournalDelete(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('challenge', kwargs={'pk': self.object.challenge.pk})
+
+
+class CommunityList(LoginRequiredMixin, ListView):
+    model = Community
+    context_object_name = 'communities'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['communities'] = context['communities'].filter(title__startswith=search_input)
+
+        context['search_input'] = search_input
+        return context
+
+
+class CommunityDetail(LoginRequiredMixin, DetailView):
+    model = Community
+    context_object_name = 'community'
+    template_name = 'base/community.html'
+
+
+class CommunityCreate(LoginRequiredMixin, CreateView):
+    model = Community
+    fields = ['title', 'description', 'link']
+    success_url = reverse_lazy('communities')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class CommunityUpdate(LoginRequiredMixin, UpdateView):
+    model = Community
+    fields = ['title', 'description', 'link']
+    success_url = reverse_lazy('community')
+
+
+class CommunityDelete(LoginRequiredMixin, DeleteView):
+    model = Community
+    context_object_name = 'community'
+    success_url = reverse_lazy('communities')

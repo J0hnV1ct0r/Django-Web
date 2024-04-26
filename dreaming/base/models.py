@@ -70,3 +70,29 @@ class Journal(models.Model):
 
     def __str__(self):
         return str(self.entry)
+
+
+class Community(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    link = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.entry)
+
+
+class CommunityReview(models.Model):
+    community = models.ForeignKey(Community, related_name='community_reviews', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, null=True, blank=True)
+    review = models.TextField(null=True, blank=True)
+    score = models.FloatField(null=True, blank=True,
+                              validators=[MinValueValidator(0), MaxValueValidator(5)])
+
+    def __str__(self):
+        return str(self.title)
+
+    class Meta:
+        """ordena apartir da nota das resenhas dos usuarios a obra."""
+        ordering = ['score']
