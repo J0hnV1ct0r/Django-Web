@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações da Comunidade</title>
+    <a href="{% url 'communities' %}">Go back </a>
+</head>
+<body>
+
+    <h2>Detalhes de {{ community.name }}</h2>
+
+    <p><strong>Dono(a) da comunidade:</strong> {{ community.user }}</p>
+    <p><strong>Descrição:</strong> {{ community.description }}</p>
+    <p><strong>Convite:</strong> {{ community.link }}</p>
+
+</body>
+</html>

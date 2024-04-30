@@ -1,0 +1,6 @@
+<a href="{% url 'communities'  %}">Go Back</a>
+<form method="POST" action="">
+    {% csrf_token %}
+    <p>Tem certeza que deseja apagar a comunidade? "{{community}}"</p>
+    <input type="submit" value="Delete" />
+</form>

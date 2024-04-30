@@ -252,7 +252,7 @@ class CommunityDetail(LoginRequiredMixin, DetailView):
 
 class CommunityCreate(LoginRequiredMixin, CreateView):
     model = Community
-    fields = ['title', 'description', 'link']
+    fields = ['name', 'description', 'link']
     success_url = reverse_lazy('communities')
 
     def form_valid(self, form):
@@ -262,8 +262,8 @@ class CommunityCreate(LoginRequiredMixin, CreateView):
 
 class CommunityUpdate(LoginRequiredMixin, UpdateView):
     model = Community
-    fields = ['title', 'description', 'link']
-    success_url = reverse_lazy('community')
+    fields = ['name', 'description', 'link']
+    success_url = reverse_lazy('communities')
 
 
 class CommunityDelete(LoginRequiredMixin, DeleteView):

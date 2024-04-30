@@ -1,0 +1,28 @@
+
+<h1>Lista de Comunidades</h1>
+<a href="{% url 'challenges' %}">Go Back</a>
+
+<form method="GET">
+    <input type="text" name="search-area" value="{{search_input}}">
+    <input type="submit" value="Search">
+
+<table>
+    <tr>
+        <th>Comunidades</th>
+        <th></th>
+        <th></th>
+
+    </tr>
+    <a href="{% url 'community-create' %}">Cadastrar Comunidade</a>
+    {% for community in communities %}
+    <tr>
+        <td>{{community.name}}</td>
+        <td><a href="{% url 'community' community.id %}">View</a></td>
+        <td><a href="{% url 'community-update' community.id %}">Edit</a></td>
+        <td><a href="{% url 'community-delete' community.id %}">Delete</a></td>
+    </tr>
+    {% empty %}
+    <h3>No items in list</h3>
+    {% endfor %}
+
+</table>

@@ -69,7 +69,7 @@ class Journal(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.entry)
+        return str(self.entry_name)
 
 
 class Community(models.Model):
@@ -79,7 +79,7 @@ class Community(models.Model):
     link = models.URLField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.entry)
+        return str(self.name)
 
 
 class CommunityReview(models.Model):
@@ -87,12 +87,8 @@ class CommunityReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
     review = models.TextField(null=True, blank=True)
-    score = models.FloatField(null=True, blank=True,
-                              validators=[MinValueValidator(0), MaxValueValidator(5)])
+    like = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.title)
 
-    class Meta:
-        """ordena apartir da nota das resenhas dos usuarios a obra."""
-        ordering = ['score']

@@ -12,8 +12,9 @@ from .views import (WorkList, WorkDetail,
 from .views import (ChallengeList, ChallengeDetail, ChallengeCreate, ChallengeUpdate,
                     ChallengeDelete)
 from .views import (ReviewCreate, ReviewUpdate, ReviewDelete)
-
 from .views import (JournalCreateView, JournalUpdate, JournalDelete)
+from .views import (CommunityList, CommunityDetail, CommunityCreate,
+                    CommunityUpdate, CommunityDelete)
 
 
 urlpatterns = [
@@ -37,6 +38,12 @@ urlpatterns = [
     path('user/journal/create/<int:challenge_id>/', JournalCreateView.as_view(), name='journal-create'),
     path('user/journal/update/<int:pk>/', JournalUpdate.as_view(), name='journal-update'),
     path('user/journal/delete/<int:pk>/', JournalDelete.as_view(), name='journal-delete'),
+
+    path('user/communities/', CommunityList.as_view(), name='communities'),
+    path('user/community/<int:pk>/', CommunityDetail.as_view(), name='community'),
+    path('user/community/create/', CommunityCreate.as_view(), name='community-create'),
+    path('user/community/update/<int:pk>/', CommunityUpdate.as_view(), name='community-update'),
+    path('user/community/delete/<int:pk>/', CommunityDelete.as_view(), name='community-delete'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
