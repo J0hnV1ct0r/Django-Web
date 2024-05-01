@@ -14,5 +14,34 @@
     <p><strong>Descrição:</strong> {{ community.description }}</p>
     <p><strong>Convite:</strong> {{ community.link }}</p>
 
+<h2>Reviews:</h2>
+
+    <h3>Sua Review</h3>
+    {% if not user_reviews %}
+        <a href="{% url 'community-review-create' community_id=community.id %}">Faça sua review</a>
+    {% endif %}
+
+    {% for review in user_reviews %}
+        <p> <strong>Usuário:</strong> {{ review.user.username }} - <strong>Like:</strong> {{ review.like }}</p>
+        <p><strong>Título:</strong> {{ review.title }}</p>
+        <p>{{ review.review }}</p>
+        {% if review.user == request.user %}
+            <a href="{% url 'community-review-update' pk=review.pk %}">Atualizar</a>
+            <a href="{% url 'community-review-delete' pk=review.pk %}">Excluir</a>
+        {% endif %}
+    {% empty %}
+        <p>Você ainda não fez nenhuma revisão para este trabalho.</p>
+    {% endfor %}
+
+    <h3>Outras Reviews</h3>
+    {% for review in other_reviews %}
+        <p> <strong>Usuário:</strong> {{ review.user.username }} - <strong>Like:</strong> {{ review.like }}</p>
+        <p><strong>Título:</strong> {{ review.title }}</p>
+        <p>{{ review.review }}</p>
+    {% empty %}
+        <p>Você ainda não fez nenhuma revisão para este trabalho.</p>
+    {% endfor %}
+
+
 </body>
 </html>

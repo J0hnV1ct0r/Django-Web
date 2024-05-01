@@ -1,0 +1,6 @@
+<a href="{% url 'community' pk=review.community.pk %}">Go Back</a>
+<form method="POST" action="">
+    {% csrf_token %}
+    <p>Tem certeza que deseja apagar a sua review da comunidade? "{{review.title}}"</p>
+    <input type="submit" value="Delete" />
+</form>
