@@ -30,19 +30,20 @@ class CommunityDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        community = self.get_object()
         # pylint: disable=E1101
         user_reviews = CommunityReview.objects.filter(community=self.object, user=self.request.user)
         # pylint: disable=E1101
         other_reviews = CommunityReview.objects.filter(community=self.object).exclude(user=self.request.user)
         # pylint: disable=E1101
-        reviews = CommunityReview.objects.filter(community=community)
-        #average_score = reviews.aggregate(Avg('score'))['score__avg'] or 0
-        num_reviews = reviews.count()
+        likes = CommunityReview.objects.filter(community=self.object, like=True).count()
+        # pylint: disable=E1101
+        deslikes = CommunityReview.objects.filter(community=self.object, like=False).count()
+
         context['user_reviews'] = user_reviews
         context['other_reviews'] = other_reviews
-        #context['average_score'] = average_score
-        context['num_reviews'] = num_reviews
+        context['likes'] = likes
+        context['deslikes'] = deslikes
+
         return context
 
 
