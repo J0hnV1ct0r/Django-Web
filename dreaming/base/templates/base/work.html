@@ -7,12 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes da Obra</title>
+    <style>
+        /* Estilo para ajustar a escala da imagem */
+        img {
+            max-width: 15%; /* Define a largura máxima da imagem como 100% do contêiner pai */
+            height: auto; /* Mantém a proporção da imagem */
+        }
+    </style>
 </head>
 <body>
 <a href="{% url 'works' %}">Go back </a>
     <h2>Detalhes da Obra</h2>
     {% if work.image %}
-    <img src="{{ imagens.url }}" alt="{{ work.title }}">
+    <img src="{{ work.image.url }}" >
     {% endif %}
     <p><strong>Título:</strong> {{ work.title }}</p>
     <p><strong>Autor:</strong> {{ work.author }}</p>

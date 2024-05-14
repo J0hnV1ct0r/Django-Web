@@ -1,13 +1,7 @@
-{% if request.user.is_authenticated%}
-    <p>{{request.user}}</p>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+{% extends 'base/main.html' %}
+{% block title %}Desafios{% endblock %}
 
+{% block content %}
 <h1>Lista de Desafios</h1>
 <a href="{% url 'challenge-create' %}">Criar Desafio</a>
 
@@ -16,10 +10,9 @@
     <input type="submit" value="Search">
 
 </form>
-<a href="{% url 'works' %}">Prorcurar Obras</a>
+
 <table>
-    <a href="{% url 'works' %}">Prorcurar Obras</a>
-    <a href="{% url 'communities' %}">Prorcurar Comunidades</a>
+
     <tr>
         <th>Item</th>
         <th></th>
@@ -40,3 +33,4 @@
 
 
 </table>
+{% endblock %}
