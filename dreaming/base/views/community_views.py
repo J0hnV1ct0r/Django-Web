@@ -11,6 +11,7 @@ from ..models import Community, CommunityReview
 class CommunityList(LoginRequiredMixin, ListView):
     model = Community
     context_object_name = 'communities'
+    template_name = 'base/community_front/community_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -26,7 +27,7 @@ class CommunityList(LoginRequiredMixin, ListView):
 class CommunityDetail(LoginRequiredMixin, DetailView):
     model = Community
     context_object_name = 'community'
-    template_name = 'base/community.html'
+    template_name = 'base/community_front/community.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,6 +52,7 @@ class CommunityCreate(LoginRequiredMixin, CreateView):
     model = Community
     fields = ['name', 'description', 'link']
     success_url = reverse_lazy('communities')
+    template_name = 'base/community_front/community_form.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -61,10 +63,11 @@ class CommunityUpdate(LoginRequiredMixin, UpdateView):
     model = Community
     fields = ['name', 'description', 'link']
     success_url = reverse_lazy('communities')
-    template_name = 'base/community_update.html'
+    template_name = 'base/community_front/community_update.html'
 
 
 class CommunityDelete(LoginRequiredMixin, DeleteView):
     model = Community
     context_object_name = 'community'
     success_url = reverse_lazy('communities')
+    template_name = 'base/community_front/community_confirm_delete.html'

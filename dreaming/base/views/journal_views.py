@@ -11,7 +11,7 @@ class JournalCreateView(LoginRequiredMixin, CreateView):
     """View de criação de journal."""
     model = Journal
     fields = ['entry_name', 'entry']
-    template_name = 'base/journal_form.html'
+    template_name = 'base/journal_front/journal_form.html'
 
     def form_valid(self, form):
         challenge = get_object_or_404(Challenge, pk=self.kwargs['challenge_id'])
@@ -27,7 +27,7 @@ class JournalUpdate(LoginRequiredMixin, UpdateView):
     model = Journal
     fields = ['entry_name', 'entry']
     context_object_name = 'journal'
-    template_name = 'base/journal_update.html'
+    template_name = 'base/journal_front/journal_update.html'
 
     def get_success_url(self):
         return reverse_lazy('challenge', kwargs={'pk': self.object.challenge.pk})
@@ -37,6 +37,7 @@ class JournalDelete(LoginRequiredMixin, DeleteView):
     """View de deleção de journal do sistema."""
     model = Journal
     context_object_name = 'journal'
+    template_name = 'base/journal_front/journal_confirm_delete.html'
 
     def get_success_url(self):
         return reverse_lazy('challenge', kwargs={'pk': self.object.challenge.pk})

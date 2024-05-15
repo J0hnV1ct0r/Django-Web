@@ -1,22 +1,7 @@
-<!-- work.html -->
+{% extends 'base/main_detail.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes da Obra</title>
-    <style>
-        /* Estilo para ajustar a escala da imagem */
-        img {
-            max-width: 15%; /* Define a largura máxima da imagem como 100% do contêiner pai */
-            height: auto; /* Mantém a proporção da imagem */
-        }
-    </style>
-</head>
 <body>
-<a href="{% url 'works' %}">Go back </a>
+{% block content %}
     <h2>Detalhes da Obra</h2>
     {% if work.image %}
     <img src="{{ work.image.url }}" >
@@ -57,6 +42,6 @@
     {% empty %}
         <p>Você ainda não fez nenhuma revisão para este trabalho.</p>
     {% endfor %}
-
+{% endblock %}
 </body>
 </html>

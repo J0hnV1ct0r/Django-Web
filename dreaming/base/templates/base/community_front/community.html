@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações da Comunidade</title>
-    <a href="{% url 'communities' %}">Go back </a>
-</head>
+{% extends 'base/main_detail.html' %}
+
 <body>
-{% include 'base/navbar.html' %}
+{% block content %}
 
     <h2>Detalhes de {{ community.name }}</h2>
 
@@ -46,6 +40,6 @@
         <p>Você ainda não fez nenhuma revisão para este trabalho.</p>
     {% endfor %}
 
-
+{% endblock %}
 </body>
 </html>

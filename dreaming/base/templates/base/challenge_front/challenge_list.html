@@ -1,20 +1,16 @@
-{% extends 'base/main.html' %}
+{% extends 'base/main_list.html' %}
 {% block title %}Desafios{% endblock %}
 
 {% block content %}
 <h1>Lista de Desafios</h1>
 <a href="{% url 'challenge-create' %}">Criar Desafio</a>
 
-<form method="GET">
-    <input type="text" name="search-area" value="{{search_input}}">
-    <input type="submit" value="Search">
-
-</form>
+{% include 'base/searchbar.html' %}
 
 <table>
 
     <tr>
-        <th>Item</th>
+        <th>Seus Desafios:</th>
         <th></th>
         <th></th>
 

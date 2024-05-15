@@ -12,6 +12,7 @@ class ChallengeList(LoginRequiredMixin, ListView):
     """View de listagem dos desafios não completados pelo usuario."""
     model = Challenge
     context_object_name = 'challenges'
+    template_name = 'base/challenge_front/challenge_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,7 +31,7 @@ class ChallengeDetail(LoginRequiredMixin, DetailView):
     """View de detalhamento de desafios de leitura."""
     model = Challenge
     context_object_name = 'challenge'
-    template_name = 'base/challenge.html'
+    template_name = 'base/challenge_front/challenge.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,6 +57,7 @@ class ChallengeCreate(LoginRequiredMixin, CreateView):
     model = Challenge
     fields = ['book', 'title', 'description']
     success_url = reverse_lazy('challenges')
+    template_name = 'base/challenge_front/challenge_form.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -67,6 +69,7 @@ class ChallengeUpdate(LoginRequiredMixin, UpdateView):
     model = Challenge
     fields = ['book', 'title', 'description', 'completed']
     success_url = reverse_lazy('challenges')
+    template_name = 'base/challenge_front/challenge_form.html'
 
 
 class ChallengeDelete(LoginRequiredMixin, DeleteView):
@@ -74,3 +77,4 @@ class ChallengeDelete(LoginRequiredMixin, DeleteView):
     model = Challenge
     context_object_name = 'challenge'
     success_url = reverse_lazy('challenges')
+    template_name = 'base/challenge_front/challenge_confirm_delete.html'

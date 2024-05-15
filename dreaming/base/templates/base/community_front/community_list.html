@@ -1,9 +1,9 @@
-{% include 'base/navbar.html' %}
+{% extends 'base/main_list.html' %}
+
+{% block content %}
 <h1>Lista de Comunidades</h1>
 
-<form method="GET">
-    <input type="text" name="search-area" value="{{search_input}}">
-    <input type="submit" value="Search">
+{% include 'base/searchbar.html' %}
 
 <table>
     <tr>
@@ -25,3 +25,4 @@
     {% endfor %}
 
 </table>
+{% endblock %}

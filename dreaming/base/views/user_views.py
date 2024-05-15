@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView
 class CustomLoginView(LoginView):
     """View de login do sistema."""
 
-    template_name = 'base/login.html'
+    template_name = 'base/user_front/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
 
@@ -20,7 +20,7 @@ class CustomLoginView(LoginView):
 class RegisterPage(FormView):
     """View de registro de usuario novo."""
 
-    template_name = 'base/register.html'
+    template_name = 'base/user_front/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('challenges')

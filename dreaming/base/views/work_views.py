@@ -11,6 +11,7 @@ class WorkList(LoginRequiredMixin, ListView):
     """View de listagem de obras literarias."""
     model = Work
     context_object_name = 'works'
+    template_name = 'base/work_front/work_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -27,7 +28,7 @@ class WorkDetail(LoginRequiredMixin, DetailView):
     """View de detalhamento de obras e listagem de reviews."""
     model = Work
     context_object_name = 'work'
-    template_name = 'base/work.html'
+    template_name = 'base/work_front/work.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -1,9 +1,9 @@
-{% include 'base/navbar.html' %}
+{% extends 'base/main_list.html' %}
+
+{% block content %}
 <h1>Lista de Obras Disponiveis</h1>
 
-<form method="GET">
-    <input type="text" name="search-area" value="{{search_input}}">
-    <input type="submit" value="Search">
+{% include 'base/searchbar.html' %}
 
 <table>
     <tr>
@@ -14,7 +14,8 @@
     </tr>
     {% for work in works %}
     <tr>
-        <td>{{work.title}}</td>
+
+        <td>{% if work.image %}<img src="{{ work.image.url }}" >{% endif %} {{work.title}}</td>
         <td><a href="{% url 'work' work.id %}">View</a></td>
     </tr>
     {% empty %}
@@ -22,3 +23,4 @@
     {% endfor %}
 
 </table>
+{% endblock %}
