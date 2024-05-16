@@ -69,7 +69,7 @@ class ChallengeUpdate(LoginRequiredMixin, UpdateView):
     model = Challenge
     fields = ['book', 'title', 'description', 'completed']
     success_url = reverse_lazy('challenges')
-    template_name = 'base/challenge_front/challenge_form.html'
+    template_name = 'base/challenge_front/challenge_update.html'
 
 
 class ChallengeDelete(LoginRequiredMixin, DeleteView):

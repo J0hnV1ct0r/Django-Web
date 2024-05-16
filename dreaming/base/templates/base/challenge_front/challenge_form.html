@@ -1,11 +1,12 @@
-{% include 'base/navbar.html' %}
+{% extends 'base/main_form.html' %}
+
+{% block content %}
 
 <h3>Desafio Formulario</h3>
-
-<a href="{% url 'challenges' %}">Go back </a>
 
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Submit">
 </form>
+{% endblock %}

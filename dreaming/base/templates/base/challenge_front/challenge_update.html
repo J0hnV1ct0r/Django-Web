@@ -1,10 +1,14 @@
-{% extends 'base/main_delete.html' %}
+{% extends 'base/main_form.html' %}
 
 {% block content %}
+
 <a href="{% url 'challenge' pk=challenge.pk %}">Go Back</a>
+
+<h3>Desafio Formulario</h3>
+
 <form method="POST" action="">
     {% csrf_token %}
-    <p>Tem certeza que deseja apagar esse desafio? "{{challenge}}"</p>
-    <input type="submit" value="Delete" />
+    {{form.as_p}}
+    <input type="submit" value="Submit">
 </form>
 {% endblock %}

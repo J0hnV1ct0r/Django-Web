@@ -5,6 +5,10 @@
 <body>
 {% block content %}
     <h2>Detalhes do Desafio</h2>
+    <tr>
+        <td><a href="{% url 'challenge-update' challenge.id %}">Edit</a></td>
+        <td><a href="{% url 'challenge-delete' challenge.id %}">Delete</a></td>
+    </tr>
     <p><strong>Obra:</strong> {{ challenge.book.title }}</p>
     <p><strong>Título:</strong> {{ challenge.title }}</p>
     <p><strong>Descrição:</strong> {{ challenge.description }}</p>

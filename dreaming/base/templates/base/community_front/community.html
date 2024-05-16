@@ -4,6 +4,10 @@
 {% block content %}
 
     <h2>Detalhes de {{ community.name }}</h2>
+    <tr>
+        <td><a href="{% url 'community-update' community.id %}">Edit</a></td>
+        <td><a href="{% url 'community-delete' community.id %}">Delete</a></td>
+    </tr>
 
     <p><strong>Dono(a) da comunidade:</strong> {{ community.user }}</p>
     <p><strong>Descrição:</strong> {{ community.description }}</p>

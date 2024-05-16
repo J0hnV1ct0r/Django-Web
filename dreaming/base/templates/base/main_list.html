@@ -8,6 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Título Padrão{% endblock %}</title>
     <style>
+        /* cores da aplicação */
+        body {
+            background-color: #4B0082 ; /* Cor roxo escuro em hexadecimal */
+            color: #ffffff; /* Cor do texto fora do conteiner em branco */
+            margin: 0; /* Remover margens padrão */
+            padding: 0; /* Remover preenchimento padrão */
+        }
+
+        .container {
+            background-color: #ffffff; /* Cor branca do container */
+            padding: 20px; /* Adicione um preenchimento ao container */
+        }
         /* Estilo para ajustar a escala da imagem */
         img {
             max-width: 15%; /* Define a largura máxima da imagem como 100% do contêiner pai */
@@ -18,8 +30,10 @@
    
 </head>
 <body>
-    {% include 'base/navbar.html' %}
+
     <div class="container">
+            {% include 'base/navbar.html' %}
+            {% include 'base/searchbar.html' %}
             {% block content %}
             {% endblock %}
     </div>

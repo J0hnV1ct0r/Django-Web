@@ -1,7 +1,11 @@
-{% include 'base/navbar.html' %}
+{% extends 'base/main_delete.html' %}
+
+{% block content %}
+
 <a href="{% url 'challenge' pk=journal.challenge.pk %}">Go Back</a>
 <form method="POST" action="">
     {% csrf_token %}
     <p>Tem certeza que deseja apagar a entrada do diario? "{{journal}}"</p>
     <input type="submit" value="Delete" />
 </form>
+{% endblock %}

@@ -1,14 +1,8 @@
 <!-- review_form.html -->
+{% extends 'base/main_form.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>formulario Review</title>
-</head>
 <body>
+{% block content %}
 <a href="{% url 'work' pk=review.work.pk %}">Go Back</a>
     <h2>formulario Review</h2>
 
@@ -17,5 +11,6 @@
         {{ form.as_p }}
         <button type="submit">Submit Review</button>
     </form>
+{% endblock %}
 </body>
 </html>

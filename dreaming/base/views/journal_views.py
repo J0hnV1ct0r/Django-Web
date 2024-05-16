@@ -18,6 +18,12 @@ class JournalCreateView(LoginRequiredMixin, CreateView):
         form.instance.challenge = challenge
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        challenge = get_object_or_404(Challenge, pk=self.kwargs['challenge_id'])
+        context['challenge_id'] = challenge.id
+        return context
+
     def get_success_url(self):
         return reverse_lazy('challenge', kwargs={'pk': self.object.challenge.pk})
 

@@ -3,7 +3,6 @@
 {% block content %}
 <h1>Lista de Comunidades</h1>
 
-{% include 'base/searchbar.html' %}
 
 <table>
     <tr>
@@ -17,8 +16,6 @@
     <tr>
         <td>{{community.name}}</td>
         <td><a href="{% url 'community' community.id %}">View</a></td>
-        <td><a href="{% url 'community-update' community.id %}">Edit</a></td>
-        <td><a href="{% url 'community-delete' community.id %}">Delete</a></td>
     </tr>
     {% empty %}
     <h3>No items in list</h3>
