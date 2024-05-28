@@ -1,6 +1,7 @@
 from django.db.models import Avg
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
@@ -37,12 +38,23 @@ class WorkDetail(LoginRequiredMixin, DetailView):
         user_reviews = Review.objects.filter(work=self.object, user=self.request.user)
         # pylint: disable=E1101
         other_reviews = Review.objects.filter(work=self.object).exclude(user=self.request.user)
+        paginator = Paginator(other_reviews, 10)
+        num_pages = self.request.GET.get('page')
+        try:
+            pages = paginator.page(num_pages)
+        except PageNotAnInteger:
+            pages = paginator.page(1)
+        except EmptyPage:
+            pages = paginator.page(paginator.num_pages)
         # pylint: disable=E1101
         reviews = Review.objects.filter(work=work)
         average_score = reviews.aggregate(Avg('score'))['score__avg'] or 0
+
         num_reviews = reviews.count()
+
         context['user_reviews'] = user_reviews
         context['other_reviews'] = other_reviews
         context['average_score'] = average_score
-        context['num_reviews'] = num_reviews
+        context['pages'] = pages
+        context['num_reviews'] = num_pages
         return context

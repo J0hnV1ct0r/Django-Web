@@ -1,6 +1,5 @@
 <!-- navbar.html -->
 
-<nav class="navbar">
     {% if request.user.is_authenticated%}
     <p>{{request.user}}</p>
     <form action="{% url 'logout' %}" method="post">
@@ -17,4 +16,4 @@
         <li><a href="{% url 'communities' %}">Comunidades</a></li>
         <!-- Adicione mais links conforme necessário -->
     </ul>
-</nav>
+

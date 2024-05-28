@@ -9,8 +9,72 @@
     <title>{% block title %}Título Padrão{% endblock %}</title>
     <style>
         /* Estilo para ajustar a escala da imagem */
+          body {
+            background-color: #4B0082 ; /* Cor roxo escuro em hexadecimal */
+            color: #ffffff; /* Cor do texto fora do conteiner em branco */
+            margin: 0; /* Remover margens padrão */
+            padding: 0; /* Remover preenchimento padrão */
+        }
+
+        .container {
+            background-color: #ffffff; /* Cor branca do container */
+            padding: 20px; /* Adicione um preenchimento ao container */
+        }
+        .left {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0;
+        }
+        .left img {
+             max-width: 100%;
+             max-height: 100%;
+             width: auto;
+             height: auto;
+        }
+        .right {
+            flex: 1;
+            padding: 20px;
+        }
+        .navbar {
+            border-bottom: 3px solid #ccc; /* Linha separadora na parte inferior */
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ccc; /* Cor e estilo da linha */
+            margin: 0; /* Remover margem padrão */
+        }
+        .search-bar {
+            margin-bottom: 20px; /* Espaço abaixo da barra de pesquisa */
+        }
+
+        .search-bar input[type="text"] {
+            width: 40%; /* Largura da barra de pesquisa */
+            padding: 8px; /* Preenchimento interno da barra de pesquisa */
+            margin-right: 10px; /* Espaço à direita da barra de pesquisa */
+        }
+
+        .search-bar button {
+            padding: 10px; /* Preenchimento interno do botão */
+        }
+
+        .content > * {
+            margin-bottom: 15px; /* Espaço entre elementos dentro do container */
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+        }
+        .content > .block {
+            background-color: #f0f0f0; /* Cor de fundo para os blocos */
+            padding: 20px; /* Preenchimento dos blocos */
+            margin: 10px; /* Espaço ao redor dos blocos */
+            flex: 1; /* Permitir que os blocos cresçam igualmente */
+        }
         img {
-            max-width: 18%; /* Define a largura máxima da imagem como 100% do contêiner pai */
+            max-width: 50%; /* Define a largura máxima da imagem como 100% do contêiner pai */
             height: auto; /* Mantém a proporção da imagem */
         }
     </style>
@@ -18,9 +82,23 @@
 
 </head>
 <body>
+    <div class="navbar">
+        {% include 'base/navbar.html' %}
+    </div>
 
     <div class="container">
-            {% include 'base/navbar.html' %}
+
+        <div class="content">
+            <div class="block">
+                {% block left_content %}
+                {% endblock %}
+            </div>
+
+            <div class="block">
+                {% block right_content %}
+                {% endblock %}
+            </div>
+        </div>
             {% block content %}
             {% endblock %}
     </div>

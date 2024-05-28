@@ -1,11 +1,14 @@
 {% extends 'base/main_detail.html' %}
 
 <body>
-{% block content %}
+
+{% block left_content %}
     <h2>Detalhes da Obra</h2>
     {% if work.image %}
     <img src="{{ work.image.url }}" >
     {% endif %}
+{% endblock %}
+{% block right_content %}
     <p><strong>Título:</strong> {{ work.title }}</p>
     <p><strong>Autor:</strong> {{ work.author }}</p>
     <p><strong>Média das Notas:</strong> {{ average_score }}</p>
@@ -13,8 +16,9 @@
     <p><strong>Genero:</strong> {{ work.genre }}</p>
     <p><strong>Número de Páginas:</strong> {{ work.page_number }}</p>
     <p><strong>Tipo:</strong> {{ work.kind }}</p>
+{% endblock %}
 
-
+{% block content %}
     <h2>Reviews:</h2>
 
     <h3>Sua Review</h3>
@@ -35,13 +39,25 @@
     {% endfor %}
 
     <h3>Outras Reviews</h3>
-    {% for review in other_reviews %}
-        <p> <strong>Usuário:</strong> {{ review.user.username }} - <strong>Nota:</strong> {{ review.score }}</p>
-        <p><strong>Título:</strong> {{ review.title }}</p>
-        <p>{{ review.review }}</p>
+    {% for page in pages %}
+        <p> <strong>Usuário:</strong> {{ page.user.username }} - <strong>Nota:</strong> {{ page.score }}</p>
+        <p><strong>Título:</strong> {{ page.title }}</p>
+        <p>{{ page.review }}</p>
     {% empty %}
         <p>Você ainda não fez nenhuma revisão para este trabalho.</p>
     {% endfor %}
+
+    {% if pages.has_other_pages %}
+        <ul class="pagination">
+            {% for num in pages.paginator.page_range %}
+                {% if pages.number == num %}
+                    <li class="active"><span>{{ num }}</span></li>
+                {% elif num > pages.number|add:'-3' and num < pages.number|add:'3' %}
+                    <li><a href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

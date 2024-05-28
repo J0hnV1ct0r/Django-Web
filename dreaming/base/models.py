@@ -17,7 +17,7 @@ class Work(models.Model):
     page_number = models.IntegerField(null=True, blank=True)
     genre = models.CharField(max_length=200, null=True, blank=True)
     kind = models.CharField(max_length=100, blank=True)
-    image = models.ImageField(upload_to='imagens/', null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return str(self.title)

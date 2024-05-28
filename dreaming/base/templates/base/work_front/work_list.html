@@ -11,12 +11,22 @@
         <th></th>
 
     </tr>
+
     {% for work in works %}
     <tr>
-
-        <td>{% if work.image %}<img src="{{ work.image.url }}" >{% endif %} {{work.title}}</td>
-        <td><a href="{% url 'work' work.id %}">View</a></td>
+        <td> {% if work.image %}<img src="{{ work.image.url }}" >{% endif %} </td>
     </tr>
+
+    <tr>
+        <td><a href="{% url 'work' work.id %}">{{work.title}}</a></td>
+         <div class="empty-line"></div>
+    </tr>
+
+    <tr><td>      </td></tr>
+    <tr><td>      </td></tr>
+    <tr><td>      </td></tr>
+    <tr><td>      </td></tr>
+
     {% empty %}
     <h3>No items in list</h3>
     {% endfor %}

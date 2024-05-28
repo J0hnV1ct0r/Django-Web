@@ -3,7 +3,7 @@
 {% block title %}Detalhes do Desafios{% endblock %}
 
 <body>
-{% block content %}
+{% block left_content %}
     <h2>Detalhes do Desafio</h2>
     <tr>
         <td><a href="{% url 'challenge-update' challenge.id %}">Edit</a></td>
@@ -14,7 +14,9 @@
     <p><strong>Descrição:</strong> {{ challenge.description }}</p>
     <p><strong>Concluído:</strong> {% if challenge.completed %}Sim{% else %}Não{% endif %}</p>
     <p><strong>Criado em:</strong> {{ challenge.created }}</p>
+{% endblock %}
 
+{% block right_content %}
     <h2>Journal</h2>
     <a href="{% url 'journal-create' challenge_id=challenge.id %}">Criar entrada no diario</a>
 

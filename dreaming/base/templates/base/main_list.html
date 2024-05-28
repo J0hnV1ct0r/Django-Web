@@ -20,6 +20,31 @@
             background-color: #ffffff; /* Cor branca do container */
             padding: 20px; /* Adicione um preenchimento ao container */
         }
+        .navbar {
+            border-bottom: 3px solid #ccc; /* Linha separadora na parte inferior */
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ccc; /* Cor e estilo da linha */
+            margin: 0; /* Remover margem padrão */
+        }
+        .search-bar {
+            margin-bottom: 20px; /* Espaço abaixo da barra de pesquisa */
+        }
+
+        .search-bar input[type="text"] {
+            width: 40%; /* Largura da barra de pesquisa */
+            padding: 8px; /* Preenchimento interno da barra de pesquisa */
+            margin-right: 10px; /* Espaço à direita da barra de pesquisa */
+        }
+
+        .search-bar button {
+            padding: 10px; /* Preenchimento interno do botão */
+        }
+
+        .content > * {
+            margin-bottom: 15px; /* Espaço entre elementos dentro do container */
+        }
         /* Estilo para ajustar a escala da imagem */
         img {
             max-width: 15%; /* Define a largura máxima da imagem como 100% do contêiner pai */
@@ -31,11 +56,21 @@
 </head>
 <body>
 
+    <div class="navbar">
+        {% include 'base/navbar.html' %}
+    </div>
+
     <div class="container">
-            {% include 'base/navbar.html' %}
+
+        <div class="search-bar">
             {% include 'base/searchbar.html' %}
+        </div>
+
+        <div class="content">
             {% block content %}
             {% endblock %}
+        </div>
+
     </div>
 
 </body>
