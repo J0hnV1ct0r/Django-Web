@@ -21,7 +21,41 @@ class WorkList(LoginRequiredMixin, ListView):
         if search_input:
             context['works'] = context['works'].filter(title__startswith=search_input)
 
+        books = context['works'].filter(kind='Book')
+        comics = context['works'].filter(kind='Comic')
+        mangas = context['works'].filter(kind='Manga')
+
+        books_paginator = Paginator(books, 3)
+        books_num_pages = self.request.GET.get('page')
+        try:
+            books_pages = books_paginator.page(books_num_pages)
+        except PageNotAnInteger:
+            books_pages = books_paginator.page(1)
+        except EmptyPage:
+            books_pages = books_paginator.page(books_paginator.num_pages)
+
+        comics_paginator = Paginator(comics, 3)
+        comics_num_pages = self.request.GET.get('page')
+        try:
+            comics_pages = comics_paginator.page(comics_num_pages)
+        except PageNotAnInteger:
+            comics_pages = comics_paginator.page(1)
+        except EmptyPage:
+            comics_pages = comics_paginator.page(comics_paginator.num_pages)
+
+        mangas_paginator = Paginator(mangas, 3)
+        mangas_num_pages = self.request.GET.get('page')
+        try:
+            mangas_pages = mangas_paginator.page(mangas_num_pages)
+        except PageNotAnInteger:
+            mangas_pages = mangas_paginator.page(1)
+        except EmptyPage:
+            mangas_pages = mangas_paginator.page(comics_paginator.num_pages)
+
         context['search_input'] = search_input
+        context['books'] = books_pages
+        context['comics'] = comics_pages
+        context['mangas'] = mangas_pages
         return context
 
 

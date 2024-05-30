@@ -1,35 +1,103 @@
 {% extends 'base/main_list.html' %}
+{% block title %}Obras{% endblock %}
 
 {% block content %}
 <h1>Lista de Obras Disponiveis</h1>
 
 
-<table>
-    <tr>
-        <th>Obras</th>
-        <th></th>
-        <th></th>
+<div class="content">
+    <div class="block">
 
-    </tr>
 
-    {% for work in works %}
-    <tr>
-        <td> {% if work.image %}<img src="{{ work.image.url }}" >{% endif %} </td>
-    </tr>
+        <tr>
+            <th>Livros</th>
+            <th></th>
+            <th></th>
+        </tr>
 
-    <tr>
-        <td><a href="{% url 'work' work.id %}">{{work.title}}</a></td>
-         <div class="empty-line"></div>
-    </tr>
+        <ul class="horizontal-list">
+            {% for work in books %}
+            <li>
+                {% if work.image %}<img src="{{ work.image.url }}" >{% endif %}
+                <p><a href="{% url 'work' work.id %}">{{work.title}}</a></p>
+            </li>
 
-    <tr><td>      </td></tr>
-    <tr><td>      </td></tr>
-    <tr><td>      </td></tr>
-    <tr><td>      </td></tr>
+            {% empty %}
+            <h3>No items in list</h3>
+            {% endfor %}
+        </ul>
 
-    {% empty %}
-    <h3>No items in list</h3>
-    {% endfor %}
+        {% if books.has_other_pages %}
+        <ul class="pagination">
+            {% for num in books.paginator.page_range %}
+                {% if books.number == num %}
+                    <li class="active"><span>{{ num }}</span></li>
+                {% elif num > books.number|add:'-3' and num < books.number|add:'3' %}
+                    <li><a href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 
-</table>
+    <div class="block">
+
+        <tr>
+            <th>HQs</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <ul class="horizontal-list">
+            {% for work in comics %}
+            <li>
+                {% if work.image %}<img src="{{ work.image.url }}" >{% endif %}
+                <p><a href="{% url 'work' work.id %}">{{work.title}}</a></p>
+            </li>
+            {% empty %}
+                <h3>No items in list</h3>
+            {% endfor %}
+        </ul>
+        {% if comics.has_other_pages %}
+            <ul class="pagination">
+                {% for num in comics.paginator.page_range %}
+                    {% if books.number == num %}
+                        <li class="active"><span>{{ num }}</span></li>
+                    {% elif num > comics.number|add:'-3' and num < comics.number|add:'3' %}
+                        <li><a href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="block">
+
+        <tr>
+            <th>Mangas</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <ul class="horizontal-list">
+            {% for work in mangas %}
+            <li>
+                {% if work.image %}<img src="{{ work.image.url }}" >{% endif %}
+                <p><a href="{% url 'work' work.id %}">{{work.title}}</a></p>
+            </li>
+            {% empty %}
+                <h3>No items in list</h3>
+            {% endfor %}
+        </ul>
+        {% if mangas.has_other_pages %}
+            <ul class="pagination">
+                {% for num in mangas.paginator.page_range %}
+                    {% if mangas.number == num %}
+                        <li class="active"><span>{{ num }}</span></li>
+                    {% elif num > mangas.number|add:'-3' and num < mangas.number|add:'3' %}
+                        <li><a href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

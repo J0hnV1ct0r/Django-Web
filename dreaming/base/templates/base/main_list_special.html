@@ -20,12 +20,6 @@
             background-color: #ffffff; /* Cor branca do container */
             padding: 20px; /* Adicione um preenchimento ao container */
         }
-        .block {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-        }
         .navbar {
             border-bottom: 3px solid #ccc; /* Linha separadora na parte inferior */
         }
@@ -51,24 +45,17 @@
         .content > * {
             margin-bottom: 15px; /* Espaço entre elementos dentro do container */
         }
-        .horizontal-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
+        .content {
             display: flex;
+            justify-content: space-between;
         }
-        .horizontal-list li {
-            margin: 10px;
-            text-align: center; /* Centraliza o texto abaixo da imagem */
-            flex: 1 1 200px; /* Permite que os itens cresçam e encolham */
-            max-width: 200px; /* Define uma largura máxima para os itens */
+        .content > .block {
+            background-color: #f0f0f0; /* Cor de fundo para os blocos */
+            padding: 20px; /* Preenchimento dos blocos */
+            margin: 10px; /* Espaço ao redor dos blocos */
+            flex: 1; /* Permitir que os blocos cresçam igualmente */
         }
-        .horizontal-list li img {
-            width: 100%; /* Define a imagem para ocupar toda a largura do item */
-            height: auto; /* Mantém a proporção da imagem */
-            max-width: 150px; /* Define uma largura máxima para as imagens */
-            margin: 0 auto; /* Centraliza a imagem horizontalmente */
-        }
+
         /* Estilo para ajustar a escala da imagem */
         img {
             max-width: 15%; /* Define a largura máxima da imagem como 100% do contêiner pai */
@@ -90,10 +77,22 @@
             {% include 'base/searchbar.html' %}
         </div>
 
+        <div class="container">
+        {% block content %}{% endblock %}
+
         <div class="content">
-            {% block content %}
-            {% endblock %}
+            <div class="block">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            <div class="block">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
+
+    </div>
 
     </div>
 
