@@ -11,7 +11,7 @@
 
     <p><strong>Dono(a) da comunidade:</strong> {{ community.user }}</p>
     <p><strong>Descrição:</strong> {{ community.description }}</p>
-    <p><strong>Convite:</strong> {{ community.link }}</p>
+    <p><strong>Convite:</strong> <a href="{{ community.link }}" target="_blank">Entrar na comunidade</a></p>
     <p><strong>Numero de likes:</strong> {{ likes }}</p>
     <p><strong>Numero de deslikes:</strong> {{ deslikes }}</p>
 {% endblock %}
