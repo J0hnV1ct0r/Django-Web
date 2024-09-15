@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from ..models import Community, CommunityReview
 
 
+
 class CommunityReviewCreate(LoginRequiredMixin, CreateView):
     """View de criação de review de comunidade."""
     model = CommunityReview

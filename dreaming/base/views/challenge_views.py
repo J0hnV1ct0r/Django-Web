@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-
-from ..models import Challenge, Journal
+from ..mediators.challengeMediator import ChallengeMediator
+from ..models import Challenge
 
 
 class ChallengeList(LoginRequiredMixin, ListView):
@@ -16,14 +16,8 @@ class ChallengeList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['challenges'] = context['challenges'].filter(user=self.request.user)
-        context['count'] = context['challenges'].filter(completed=False).count()
-
-        search_input = self.request.GET.get('search-area') or ''
-        if search_input:
-            context['challenges'] = context['challenges'].filter(title__startswith=search_input)
-
-        context['search_input'] = search_input
+        mediator = ChallengeMediator(self.request)
+        context.update(mediator.get_combined_context())
         return context
 
 
@@ -36,19 +30,8 @@ class ChallengeDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         challenge = self.get_object()
-        # pylint: disable=E1101
-        journal_entries = Journal.objects.filter(challenge=challenge).order_by('created')
-        paginator = Paginator(journal_entries, 1)
-        num_pages = self.request.GET.get('page')
-        try:
-            pages = paginator.page(num_pages)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
-
-        context['pages'] = pages
-        context['num_reviews'] = num_pages
+        mediator = ChallengeMediator(self.request)
+        context.update(mediator.get_combined_context(challenge=challenge))
         return context
 
 

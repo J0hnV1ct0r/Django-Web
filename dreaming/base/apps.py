@@ -1,7 +1,8 @@
+from django.apps import AppConfig
+from .Gpt_api.client import GPTModel
 """
 Configuração do sistema.
 """
-from django.apps import AppConfig
 
 
 class BaseConfig(AppConfig):
@@ -11,3 +12,5 @@ class BaseConfig(AppConfig):
 
     def ready(self):
         from . import signals
+
+        self.gpt_model_instance = GPTModel()

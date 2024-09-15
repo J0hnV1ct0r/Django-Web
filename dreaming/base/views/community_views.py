@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-
-from ..models import Community, CommunityReview
+from ..mediators.communityMediator import CommunityMediator
+from ..models import Community
 
 
 class CommunityList(LoginRequiredMixin, ListView):
@@ -31,19 +31,11 @@ class CommunityDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # pylint: disable=E1101
-        user_reviews = CommunityReview.objects.filter(community=self.object, user=self.request.user)
-        # pylint: disable=E1101
-        other_reviews = CommunityReview.objects.filter(community=self.object).exclude(user=self.request.user)
-        # pylint: disable=E1101
-        likes = CommunityReview.objects.filter(community=self.object, like=True).count()
-        # pylint: disable=E1101
-        deslikes = CommunityReview.objects.filter(community=self.object, like=False).count()
-
-        context['user_reviews'] = user_reviews
-        context['other_reviews'] = other_reviews
-        context['likes'] = likes
-        context['deslikes'] = deslikes
+        mediator = CommunityMediator(self.object)
+        context['user_reviews'] = mediator.get_user_reviews(self.request.user)
+        context['other_reviews'] = mediator.get_other_reviews(self.request.user)
+        context['likes'] = mediator.get_likes_count()
+        context['deslikes'] = mediator.get_dislikes_count()
 
         return context
 
