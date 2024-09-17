@@ -1,0 +1,49 @@
+<!-- templates/base/chat.html -->
+<!-- templates/base/chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Merlin</title>
+    <style>
+        #chat {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .message {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        {% include 'base/navbar.html' %}
+    </div>
+    <div id="chat">
+        <div id="messages">
+            {% if user_message %}
+                <div class="message">You: {{ user_message }}</div>
+            {% endif %}
+            {% if response %}
+                <div class="message">Merlin: {{ response }}</div>
+            {% endif %}
+            {% if error %}
+                <div class="message" style="color: red;">Error: {{ error }}</div>
+            {% endif %}
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Type your message here..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>

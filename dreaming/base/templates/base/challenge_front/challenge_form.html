@@ -6,7 +6,22 @@
 
 <form method="POST" action="">
     {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Submit">
+    {{ form.as_p }}
+    <input type="hidden" name="gpt_description" value="{{ gpt_description }}">
+
+    <!-- Botão para gerar o desafio -->
+    <button type="submit" name="action" value="generate">Gerar Sugestão Desafio</button>
+
+    {% if gpt_description %}
+        <h4>Sugestão de desafio:</h4>
+        <p>{{ gpt_description }}</p>
+
+    {% endif %}
+
+    <!-- Botão para salvar o desafio -->
+    <button type="submit" name="action" value="save">Salvar Desafio</button>
 </form>
+
+
+
 {% endblock %}

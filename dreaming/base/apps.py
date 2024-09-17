@@ -11,6 +11,6 @@ class BaseConfig(AppConfig):
     name = 'base'
 
     def ready(self):
-        from . import signals
+        #from . import signals
 
         self.gpt_model_instance = GPTModel()

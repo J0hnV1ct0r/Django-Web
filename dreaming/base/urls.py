@@ -16,6 +16,8 @@ from .views.journal_views import (JournalCreateView, JournalUpdate, JournalDelet
 from .views.community_views import (CommunityList, CommunityDetail, CommunityCreate,
                                     CommunityUpdate, CommunityDelete)
 from .views.community_review_views import (CommunityReviewCreate, CommunityReviewUpdate, CommunityReviewDelete)
+from .views.merlin_view import chat_with_merlin
+from .views.IA_challenge_view import create_challenge
 
 urlpatterns = [
                   path('login/', CustomLoginView.as_view(), name='login'),
@@ -51,5 +53,8 @@ urlpatterns = [
                        CommunityReviewUpdate.as_view(), name='community-review-update'),
                   path('user/community/review/delete/<int:pk>/',
                        CommunityReviewDelete.as_view(), name='community-review-delete'),
+
+                  path('user/merlin', chat_with_merlin, name='chat_with_merlin'),
+                 path('challenge/create/', create_challenge, name='create_challenge'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

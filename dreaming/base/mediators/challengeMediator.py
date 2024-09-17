@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from ..models import Challenge, Journal
+import time
+from django.apps import apps
 
 class ChallengeMediator:
     def __init__(self, request):
@@ -44,3 +46,13 @@ class ChallengeMediator:
             return self.get_context_for_challenge_detail(challenge)
         else:
             return self.get_context_for_challenge_list()
+
+    def generate_challenge_description(self, book, title):
+        objective = (f"Crie um desafio para o livro '{book}' com o objetivo '{title}'. O desafio deve durar 30 dias, "
+                     f"o desafio deve ter no maximo 50 caracteres")
+        print(f"Iniciando geração de desafio para o livro '{book}' com o objetivo '{title}'")
+        start_time = time.time()
+        gpt_model = apps.get_app_config('base').gpt_model_instance
+        gpt_description = gpt_model.get_text_ia(prompt=objective, max_tokens=150)
+        print(f"Desafio gerado em {time.time() - start_time:.2f} segundos")
+        return gpt_description

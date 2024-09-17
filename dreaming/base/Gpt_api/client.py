@@ -7,11 +7,11 @@ class GPTModel:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(GPTModel, cls).__new__(cls)
-            cls._instance._initialize()  # Chama o inicializador apenas uma vez
+            cls._instance._initialize()
         return cls._instance
 
     def _initialize(self):
-        """Este método é chamado uma vez para configurar o modelo."""
+
         self.model = GPT4All("Meta-Llama-3-8B-Instruct.Q4_0.gguf")
 
     def get_text_ia(self, prompt, max_tokens):

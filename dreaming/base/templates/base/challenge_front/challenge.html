@@ -10,8 +10,8 @@
         <td><a href="{% url 'challenge-delete' challenge.id %}">Delete</a></td>
     </tr>
     <p><strong>Obra:</strong> {{ challenge.book.title }}</p>
-    <p><strong>Título:</strong> {{ challenge.title }}</p>
-    <p><strong>Descrição:</strong> {{ challenge.description }}</p>
+    <p><strong>Objetivo:</strong> {{ challenge.title }}</p>
+    <p><strong>Desafio:</strong> {{ challenge.description }}</p>
     <p><strong>Concluído:</strong> {% if challenge.completed %}Sim{% else %}Não{% endif %}</p>
     <p><strong>Criado em:</strong> {{ challenge.created }}</p>
 {% endblock %}
